@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Config
+preferences: {}
+clusters:
+  - cluster:
+      certificate-authority-data: <fill this value>
+      server: https://api.k8.dev.cyril-sebastian.com
+    name: k8.dev.cyril-sebastian.com
+users:
+  - name: jenkins
+    user:
+      password: <fill this value>
+      username: admin
+contexts:
+  - context:
+      cluster: k8.dev.cyril-sebastian.com
+      user: jenkins
+    name: k8.dev.cyril-sebastian.com
+current-context: k8.dev.cyril-sebastian.com
