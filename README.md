@@ -16,8 +16,8 @@ AWS_PROFILE=<profile_name> AWS_REGION=<region> ansible-playbook -i development a
 #### Cyril
 export AWS_PROFILE=dev
 export AWS_REGION=us-east-1
-export IP=52.201.183.194
-export INSTANCE_SIZE=t2.samll
+export IP=18.215.11.190
+export INSTANCE_SIZE=t2.small
 echo $AWS_PROFILE $AWS_REGION $IP $INSTANCE_SIZE
 ansible-playbook -i development aws_vpc_ec2_setup.yml --extra-var "ec2_instance_size=$INSTANCE_SIZE key_pair=csye7374 elastic_ip=$IP route53_zone_name=jenkins.${AWS_PROFILE}.cyril-sebastian.com route53_record_name=jenkins.${AWS_PROFILE}.cyril-sebastian.com letsencrypt_email=a@a.com domain_name=jenkins.${AWS_PROFILE}.cyril-sebastian.com staging_cert=false" -vvv
 
@@ -28,8 +28,9 @@ AWS_PROFILE=<profile_name> AWS_REGION=<region> ansible-playbook -i development a
 #### Cyril
 export AWS_PROFILE=dev
 export AWS_REGION=us-east-1
-echo $AWS_PROFILE $AWS_REGION
-ansible-playbook -i development aws_vpc_ec2_teardown.yml --extra-var "key=app value=jenkins elastic_ip=<ip>"
+export IP=52.201.183.194
+echo $AWS_PROFILE $AWS_REGION $IP
+ansible-playbook -i development aws_vpc_ec2_teardown.yml --extra-var "key=app value=jenkins elastic_ip=$IP"
 
 
 ## Jenkins

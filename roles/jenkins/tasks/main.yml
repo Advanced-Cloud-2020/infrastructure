@@ -157,6 +157,6 @@
 - name: printing jenkins initialAdminPassword
   shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - debug:
-    var: jenkins_initialAdminPassword
+    msg: jenkins_initialAdminPassword
 
     
