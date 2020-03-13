@@ -1,11 +1,11 @@
 # Team information
 
 | Team Members        | Github Id            | NUID      |
-| ------------------- |:---------           :|:---------:|
+| ------------------- |:--------------------:|:---------:|
 | Suhas Pasricha      | suhas1602            | 001434745 |
 | Puneet Tanwar       | puneetneu            | 001409671 |
 | Cyril Sebastian     | cyrilsebastian1811   | 001448384 |
-| Shubham Sharma      | shubh1646            | 001447366 | 
+| Shubham Sharma      | shubh1646            | 001447366 |
 
 # Instructions to run code
 
@@ -38,7 +38,8 @@ ansible-playbook -i development aws_vpc_ec2_teardown.yml --extra-var "key=app va
 ### Plugins to be Installed
 1. GitHub Integration
 2. Kubernetes CLI
-3. SSH Agent
+3. Kubernetes
+4. SSH Agent
 
 ### Configuration for Pipeline
 #### Credentials
