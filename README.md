@@ -48,5 +48,4 @@ ansible-playbook -i development aws_vpc_ec2_teardown.yml --extra-var "key=app va
 #### Configure System
 1. Manage Jenkins -> Configure System -> Cloud -> Kubernetes:
 Kubernetes server certificate key: (~/.kube/config/clusters:certificate-authority-data | base64decode )
-Credentials: kubernetes_credentials
-   
+Credentials: kubernetes_credentials  
