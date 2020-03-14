@@ -125,7 +125,38 @@
     sudo apt install -y gnupg2 pass
     sudo groupadd docker
     sudo usermod -aG docker jenkins
-    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   register: docker_registery_installation_info
 - debug:
     var: docker_registery_installation_info
+
+- name: Kubectl Installation
+  shell: |
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    sudo chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    kubectl version --client
+- debug:
+    var: kubectl_installation_info
+
+- name: Helm Installation
+  shell: |
+    sudo wget https://get.helm.sh/helm-v3.1.1-linux-amd64.tar.gz
+    sudo tar -zxvf helm-v3.1.1-linux-amd64.tar.gz
+    sudo mv linux-amd64/helm /usr/local/bin/helm
+- debug:
+    var: helm_installation_info
+
+- name: yq Installation
+  shell: |
+    sudo add-apt-repository -y ppa:rmescandon/yq
+    sudo apt update
+    sudo apt install yq -y
+- debug:
+    var: yq_installation_info
+
+- name: printing jenkins initialAdminPassword
+  shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+- debug:
+    msg: jenkins_initialAdminPassword
+
+    
