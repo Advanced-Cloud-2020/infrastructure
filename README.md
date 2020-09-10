@@ -13,9 +13,36 @@ Simulation on production grade kubernetes deployment on AWS
 *   Service discovery for frontend and backend
 *   Created [helm charts](https://helm.sh/docs/chart_template_guide/getting_started/) to deploy the application
 
+
+## Information about clusters 
+
+*   Created ansible play-book to launch the cluster in Dev and Prod environments
+*   Playbooks handle the number of nodes and sizes of compute and master nodes depending on the type of environment
+*   Created kubernetes clustes in HA setup in 3 different availability zones picking the zones automatically in production setup
+*   Created the clusters with private topology and has a [bastion](https://github.com/kubernetes/kops/blob/master/docs/bastion.md) host to maintain the compute and master node
+*   Used ansible [k8s](https://docs.ansible.com/ansible/latest/modules/k8s_module.html) module to deploy the application on the clusters
+
+## Microservices
+
+### Backend
+
+*   The Recipe Management Web application is developed using Java Spring Boot framework that uses the REST architecture
+*   Secured the application with [Spring Security](https://spring.io/projects/spring-security) Basic [authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) to retrieve user information
+*   Storing the images of recipes in S3
+*   The data is cached in Redis for 10 minutes for faster IO
+*   Containerized the application
+
+### FrontEnd
+
+*   A minimal frontend built on [react](https://reactjs.org/docs/getting-started.html) to view the recipes
+*   The frontend app uses a public endpoint exposed by backend
+*   Containerized the application
+
+
+
 ## Instructions to run code
 
-#### [Jenkins setup](#JenkinsSetup)
+### Jenkins Setup
 
 *   Created [ansible](https://docs.ansible.com/ansible/latest/index.html) playbooks to create infrastructure
 *   Hosted [jenkins](https://jenkins.io/doc/) on a custom domain `jenkins.username.com`
@@ -24,31 +51,21 @@ Simulation on production grade kubernetes deployment on AWS
 *   Configured a custom custom domain in [Route53](https://aws.amazon.com/route53/) and updating the Route53 A record with the launched EC2 instances public dns
 *   Clone the repo
 
-#### Credentials
-1. dockerhub_credentials(Username and Password)
-2. github-ssh(SSH) 
-3. kubernetes_credentials(Username and Password) -> Username: admin, Password: (~/.kube/config/users:password | base64 )
-#### Configure System
-1. Manage Jenkins -> Configure System -> Cloud -> Kubernetes:
-Kubernetes server certificate key: (~/.kube/config/clusters:certificate-authority-data | base64decode )
-Credentials: kubernetes_credentials  
+ ### Credentials needed 
+* dockerhub_credentials(Username and Password)
+* github-ssh(SSH) 
+* kubernetes_credentials(Username and Password) -> Username: admin, Password: (~/.kube/config/users:password | base64 )
+### Configure System
+* Manage Jenkins -> Configure System -> Cloud -> Kubernetes:
+* Kubernetes server certificate key: (~/.kube/config/clusters:certificate-authority-data | base64decode )
+* Credentials: kubernetes_credentials  
 
-    
-#### Plugins to be Installed on Jenking to make CI/CD Work
+### Plugins to be Installed on Jenking to make CI/CD Work
 1. GitHub Integration
 2. Kubernetes CLI
 3. Kubernetes
 4. SSH Agent
 
-### To create vpc and ec2 instance run command 
-
-* AWS_PROFILE=<profile_name> AWS_REGION=<region> ansible-playbook -i development aws_vpc_ec2_setup.yml --extra-var "ec2_instance_size=<instance_size> key_pair=<ec2_key_pair> elastic_ip=<elastic_ip_address> route53_zone_name=<domain_name> route53_record_name=<jenkins.domain_name> letsencrypt_email=<your_email_id> domain_name=<jenkins.domain_name> staging_cert=false"  -vvv
-
-
-
-### To teardown vpc and ec2 instance run command
-
-* AWS_PROFILE=<profile_name> AWS_REGION=<region> ansible-playbook -i development aws_vpc_ec2_teardown.yml --extra-var "key=app value=jenkins elastic_ip=<elastic_ip_address>"
 
 
 
@@ -56,7 +73,10 @@ Credentials: kubernetes_credentials
 
 
 
-# Team information
+
+
+
+## Team information
 
 | Team Members        | Github Id            | NUID      |
 | ------------------- |:--------------------:|:---------:|
