@@ -38,6 +38,24 @@ Simulation on production grade kubernetes deployment on AWS
 *   The frontend app uses a public endpoint exposed by backend
 *   Containerized the application
 
+### Jenkins CI/CD
+*   Created [webhooks](https://developer.github.com/webhooks/) on github to trigger a jenkins build on each commit
+*   Created Jenkins [pipeline](https://jenkins.io/doc/pipeline/tour/hello-world/) script to run the unit tests, tag the image with push the image to docker
+
+### Deployments on Cluster
+
+*   Deployed the application in the kubernetes clusters using ansible k8s module
+*   Created [Replica sets](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/) from frontend and backend
+*   Pulled the image from private docker repository using [imagePullSecrets](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+*   Backend container has an [init-container](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) to waits for the redis service to come up
+*   Frontend container waits till the backend is up and running
+*   Passed DB, AWS secret and donfig data to the application with [configMap](https://kubernetes.io/docs/tutorials/configuration/) and [secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+*   Created a health endpoint for the backend to perform the [readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
+*   Created [Liveness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-liveness-http-request) for both the containers
+*   Created Loadbalancer services for the frontend and backend
+
+    
+    
 
 
 ## Instructions to run code
