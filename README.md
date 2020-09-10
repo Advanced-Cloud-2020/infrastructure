@@ -26,8 +26,7 @@ Simulation on production grade kubernetes deployment on AWS
 
 ### Backend
 
-*   The Recipe Management Web application is developed using Java Spring Boot framework that uses the REST architecture
-*   Secured the application with [Spring Security](https://spring.io/projects/spring-security) Basic [authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) to retrieve user information
+*   The Recipe Management Web application is developed using Express Js framework
 *   Storing the images of recipes in S3
 *   The data is cached in Redis for 10 minutes for faster IO
 *   Containerized the application
